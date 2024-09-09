@@ -76,6 +76,17 @@ app.delete('/todos/:id', async (req, res) => {
   res.status(204).send();
 });
 
+app.delete('/todos/completed/:userId', async (req, res) => {
+  const { userId } = req.params;
+  await prisma.todoItem.deleteMany({
+    where: {
+      userId: userId,
+      isCompleted: true,
+    },
+  });
+  res.status(204).send();
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
