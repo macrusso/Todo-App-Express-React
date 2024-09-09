@@ -1,2 +1,2 @@
-- [ ] error handling for endpoints
+- [x] error handling for endpoints
 - [ ] delete all selected rather than all completed?
