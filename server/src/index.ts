@@ -28,6 +28,23 @@ app.post('/users', async (req, res) => {
   res.json(newUser);
 });
 
+app.get('/todos', async (req, res) => {
+  const todos = await prisma.todoItem.findMany();
+  res.json(todos);
+});
+
+app.post('/todos', async (req, res) => {
+  const { userId, content } = req.body;
+  const newUser = await prisma.todoItem.create({
+    data: {
+      id: `${Math.floor(Math.random() * 1000)}`,
+      userId,
+      content,
+    },
+  });
+  res.json(newUser);
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

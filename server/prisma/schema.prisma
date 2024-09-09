@@ -16,3 +16,9 @@ model User {
   name     String?
   password String
 }
+
+model TodoItem {
+  id      String  @id @default(cuid())
+  content String
+  userId  String  
+}
