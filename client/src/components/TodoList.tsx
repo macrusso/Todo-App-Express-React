@@ -55,6 +55,38 @@ const TodoList = () => {
     }
   };
 
+  const addTodo = async (content: string) => {
+    try {
+      const response = await fetch(`${TODO_ENDPOINT}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: USER_ID,
+          content,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      const createdTodo = await response.json();
+
+      setTodos((prevTodos) =>
+        prevTodos.concat({
+          id: createdTodo.id,
+          content: createdTodo.content,
+          isCompleted: createdTodo.isCompleted,
+        })
+      );
+    } catch (err) {
+      setError('Something went wrong');
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -63,12 +95,12 @@ const TodoList = () => {
     updateTodoStatus(id, isCompleted);
   };
 
-  const addTodo = () => {
-    console.log('>>>> add todo');
+  const handleAddTodo = (content: string) => {
+    addTodo(content);
   };
 
-  const deleteAllCompleted = () => {
-    console.log('>>>> add todo');
+  const handleDeleteAllCompleted = () => {
+    deleteAllCompleted();
   };
 
   return (
@@ -78,14 +110,14 @@ const TodoList = () => {
       {!loading && !error && (
         <div className='w-[500px] mx-auto p-6 bg-white shadow-lg rounded-lg'>
           <h1 className='text-2xl font-bold mb-4'>Todo List</h1>
-          <TodoInput addTodo={addTodo} />
+          <TodoInput addTodo={handleAddTodo} />
           <ul>
             {todos.map((todo) => (
               <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
             ))}
           </ul>
           <button
-            onClick={deleteAllCompleted}
+            onClick={handleDeleteAllCompleted}
             className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300'
           >
             Delete all completed

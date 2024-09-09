@@ -3,3 +3,6 @@
 - [ ] delete all selected rather than all completed?
 - [ ] tests: unit, e2e
 - [ ] add some spinner element for loading
+- [ ] disable buttons and inputs when sending requests
+- [ ] refactor all those fetch methods
+- [ ] move button out
