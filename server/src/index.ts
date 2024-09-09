@@ -54,17 +54,26 @@ app.get('/todos/:userId', async (req, res) => {
 
 app.patch('/todos/:id', async (req, res) => {
   const { id } = req.params;
-  const { content, isCompleted } = req.body;
+  const { isCompleted } = req.body;
   const updatedTodo = await prisma.todoItem.update({
     where: {
       id,
     },
     data: {
-      content,
       isCompleted,
     },
   });
   res.json(updatedTodo);
+});
+
+app.delete('/todos/:id', async (req, res) => {
+  const { id } = req.params;
+  await prisma.todoItem.delete({
+    where: {
+      id,
+    },
+  });
+  res.status(204).send();
 });
 
 app.listen(port, () => {
