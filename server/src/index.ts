@@ -29,21 +29,42 @@ app.post('/users', async (req, res) => {
   res.json(newUser);
 });
 
-app.get('/todos', async (req, res) => {
-  const todos = await prisma.todoItem.findMany();
-  res.json(todos);
-});
-
 app.post('/todos', async (req, res) => {
   const { userId, content } = req.body;
-  const newUser = await prisma.todoItem.create({
+  const newTodoItem = await prisma.todoItem.create({
     data: {
       id: uuidv4(),
       userId,
       content,
+      isCompleted: false,
     },
   });
-  res.json(newUser);
+  res.json(newTodoItem);
+});
+
+app.get('/todos/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const todos = await prisma.todoItem.findMany({
+    where: {
+      userId,
+    },
+  });
+  res.json(todos);
+});
+
+app.patch('/todos/:id', async (req, res) => {
+  const { id } = req.params;
+  const { content, isCompleted } = req.body;
+  const updatedTodo = await prisma.todoItem.update({
+    where: {
+      id,
+    },
+    data: {
+      content,
+      isCompleted,
+    },
+  });
+  res.json(updatedTodo);
 });
 
 app.listen(port, () => {

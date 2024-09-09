@@ -18,7 +18,8 @@ model User {
 }
 
 model TodoItem {
-  id      String  @id @default(cuid())
-  content String
-  userId  String  
+  id          String  @id @default(cuid())
+  content     String
+  userId      String  
+  isCompleted Boolean @default(false)
 }
