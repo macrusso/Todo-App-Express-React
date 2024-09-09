@@ -1,5 +1,6 @@
 import express from 'express';
 import prisma from './prisma';
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const port = 3001;
@@ -19,7 +20,7 @@ app.post('/users', async (req, res) => {
   const { name, email, id, password } = req.body;
   const newUser = await prisma.user.create({
     data: {
-      id,
+      id: uuidv4(),
       email,
       name,
       password,
@@ -37,7 +38,7 @@ app.post('/todos', async (req, res) => {
   const { userId, content } = req.body;
   const newUser = await prisma.todoItem.create({
     data: {
-      id: `${Math.floor(Math.random() * 1000)}`,
+      id: uuidv4(),
       userId,
       content,
     },
