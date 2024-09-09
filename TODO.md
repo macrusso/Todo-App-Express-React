@@ -1,2 +1,5 @@
 - [x] error handling for endpoints
+- [ ] display errors in the UI
 - [ ] delete all selected rather than all completed?
+- [ ] tests: unit, e2e
+- [ ] add some spinner element for loading
