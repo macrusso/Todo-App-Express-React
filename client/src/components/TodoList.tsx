@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { Todo } from '../types/ToDo';
 import TodoInput from './TodoInput';
+import PrimaryButton from './PrimaryButton';
 
 const USER_ID = '9790a4f1-115a-4ba7-88e5-b07c31ed7c6b';
 const TODO_ENDPOINT = 'http://localhost:3001/todos';
@@ -104,6 +105,23 @@ const TodoList = () => {
     }
   };
 
+  const deleteTodo = async (todoId: string) => {
+    try {
+      const response = await fetch(`${TODO_ENDPOINT}/${todoId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== todoId));
+    } catch (err) {
+      setError('Something went wrong');
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -120,6 +138,10 @@ const TodoList = () => {
     deleteAllCompleted();
   };
 
+  const handleDeleteTodo = (id: string) => {
+    deleteTodo(id);
+  };
+
   return (
     <>
       {loading && <p>Loading...</p>}
@@ -130,15 +152,18 @@ const TodoList = () => {
           <TodoInput addTodo={handleAddTodo} />
           <ul>
             {todos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                toggleTodo={toggleTodo}
+                deleteTodo={handleDeleteTodo}
+              />
             ))}
           </ul>
-          <button
+          <PrimaryButton
             onClick={handleDeleteAllCompleted}
-            className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300'
-          >
-            Delete all completed
-          </button>
+            text='Delete all completed'
+          />
         </div>
       )}
     </>

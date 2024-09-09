@@ -6,3 +6,4 @@
 - [ ] disable buttons and inputs when sending requests
 - [ ] refactor all those fetch methods
 - [x] move button out
+- [ ] refactor state handling RTK?
