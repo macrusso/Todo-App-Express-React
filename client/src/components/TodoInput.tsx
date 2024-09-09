@@ -10,7 +10,7 @@ const TodoInput = ({ addTodo }: TodoInputProps) => {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && content.trim() !== '') {
       addTodo(content.trim());
-      setContent(''); // Clear the input after submission
+      setContent('');
     }
   };
 
