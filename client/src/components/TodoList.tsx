@@ -87,6 +87,23 @@ const TodoList = () => {
     }
   };
 
+  const deleteAllCompleted = async () => {
+    try {
+      const response = await fetch(`${TODO_ENDPOINT}/completed/${USER_ID}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      fetchTodos();
+    } catch (err) {
+      setError('Something went wrong');
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
