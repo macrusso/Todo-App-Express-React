@@ -1,7 +1,7 @@
 import express from 'express';
-import userRoutes from '../routes/userRoutes';
-import todoRoutes from '../routes/todoRoutes';
-import { errorHandler } from '../middleware/errorHandler';
+import userRoutes from './routes/userRoutes';
+import todoRoutes from './routes/todoRoutes';
+import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
 const port = 3001;

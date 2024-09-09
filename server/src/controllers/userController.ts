@@ -1,5 +1,5 @@
 import { Request, NextFunction, Response } from 'express';
-import prisma from '../prisma/prisma';
+import prisma from '../prisma';
 import { v4 as uuidv4 } from 'uuid';
 
 export const getUsers = async (
