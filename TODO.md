@@ -4,6 +4,7 @@
 - [ ] tests: unit, e2e
 - [ ] add some spinner element for loading
 - [ ] disable buttons and inputs when sending requests
-- [ ] refactor all those fetch methods
+- [x] refactor all those fetch methods
 - [x] move button out
 - [ ] refactor state handling RTK?
+- [ ] add user handling
