@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { Todo } from '../types/ToDo';
+import TodoInput from './TodoInput';
 
 const USER_ID = '9790a4f1-115a-4ba7-88e5-b07c31ed7c6b';
 const TODO_ENDPOINT = 'http://localhost:3001/todos';
@@ -62,6 +63,14 @@ const TodoList = () => {
     updateTodoStatus(id, isCompleted);
   };
 
+  const addTodo = () => {
+    console.log('>>>> add todo');
+  };
+
+  const deleteAllCompleted = () => {
+    console.log('>>>> add todo');
+  };
+
   return (
     <>
       {loading && <p>Loading...</p>}
@@ -69,11 +78,18 @@ const TodoList = () => {
       {!loading && !error && (
         <div className='w-[500px] mx-auto p-6 bg-white shadow-lg rounded-lg'>
           <h1 className='text-2xl font-bold mb-4'>Todo List</h1>
+          <TodoInput addTodo={addTodo} />
           <ul>
             {todos.map((todo) => (
               <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
             ))}
           </ul>
+          <button
+            onClick={deleteAllCompleted}
+            className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300'
+          >
+            Delete all completed
+          </button>
         </div>
       )}
     </>
