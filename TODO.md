@@ -5,4 +5,4 @@
 - [ ] add some spinner element for loading
 - [ ] disable buttons and inputs when sending requests
 - [ ] refactor all those fetch methods
-- [ ] move button out
+- [x] move button out
